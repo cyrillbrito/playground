@@ -1,10 +1,10 @@
 
 # React Sandbox
 
-![Test Build Deploy](https://github.com/cyrillbrito/react-sandbox/workflows/Test%20Build%20Deploy/badge.svg)
-![CodeQL](https://github.com/cyrillbrito/react-sandbox/workflows/CodeQL/badge.svg)
-![OSSAR](https://github.com/cyrillbrito/react-sandbox/workflows/OSSAR/badge.svg)
-![Super Linter](https://github.com/cyrillbrito/react-sandbox/workflows/Super%20Linter/badge.svg)
+![Test Build Deploy](https://github.com/cyrillbrito/playground/workflows/Test%20Build%20Deploy/badge.svg)
+![CodeQL](https://github.com/cyrillbrito/playground/workflows/CodeQL/badge.svg)
+![OSSAR](https://github.com/cyrillbrito/playground/workflows/OSSAR/badge.svg)
+![Super Linter](https://github.com/cyrillbrito/playground/workflows/Super%20Linter/badge.svg)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
