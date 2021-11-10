@@ -1,0 +1,22 @@
+@import '~antd/dist/antd.css';
+
+#root {
+  height: 100%;
+}
+
+.layout {
+  height: 100%;
+}
+
+.site-layout-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.logo {
+  color:white;
+  font-weight: bold;
+  margin-right: 24px;
+  float: left;
+}
