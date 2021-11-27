@@ -3,5 +3,37 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-book": {
+      "projectType": "library",
+      "root": "projects/ngx-book",
+      "sourceRoot": "projects/ngx-book/src",
+      "prefix": "nb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-book/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-book/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-book/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-book/src/test.ts",
+            "tsConfig": "projects/ngx-book/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-book/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-book"
 }
