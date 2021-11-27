@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'nb-ngx-book',
+  selector: 'nb-editor',
   template: `
     <p>
       ngx-book works!
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class NgxBookComponent implements OnInit {
+export class EditorComponent implements OnInit {
 
   constructor() { }
 

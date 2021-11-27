@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
-import { NgxBookComponent } from './ngx-book.component';
-
+import { EditorComponent } from './editor.component';
 
 
 @NgModule({
   declarations: [
-    NgxBookComponent
+    EditorComponent
   ],
   imports: [
   ],
   exports: [
-    NgxBookComponent
+    EditorComponent
   ]
 })
 export class NgxBookModule { }
