@@ -100,6 +100,13 @@ export function buildKeymap(schema, mapKeys) {
       return true
     })
   }
+  if (type = schema.nodes.math) {
+    let hr = type
+    bind("Mod-_", (state, dispatch) => {
+      dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView())
+      return true
+    })
+  }
 
   return keys
 }
