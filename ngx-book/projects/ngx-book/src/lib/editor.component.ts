@@ -13,7 +13,7 @@ import { GodSetup, schema } from './schema';
   template: `
     <div id=editor style="margin-bottom: 23px"></div>
 
-    <div style="display: none" id="content"></div>
+    <div style="display: none" id="content">123</div>
   `,
   styleUrls: ['./style.scss'],
   encapsulation: ViewEncapsulation.None
@@ -30,9 +30,9 @@ export class EditorComponent implements OnInit {
           doc: DOMParser.fromSchema(schema).parse((document as any).querySelector("#content")),
           plugins: GodSetup(schema)
         }),
-        nodeViews: {
-          fraction(node, view, getPos) { return new FractionView(node, view, getPos) }
-        }
+        // nodeViews: {
+        //   fraction(node, view, getPos) { return new FractionView(node, view, getPos) }
+        // }
       }
     )
   }
@@ -45,7 +45,7 @@ class FractionView implements NodeView<typeof schema> {
   dom?: Element;
   contentDOM?: Node;
 
-  constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, getPos: () => any) {
+  constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, getPos: boolean | (() => number)) {
     console.log('constructor');
     this.dom = this.contentDOM = document.createElement("fraction");
     // if (node.content.size == 0) this.dom.classList.add("empty")

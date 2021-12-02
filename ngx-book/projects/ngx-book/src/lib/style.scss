@@ -3,33 +3,52 @@ fraction {
   background-color: rgba(0, 0, 0, .05);
   flex-direction: column;
   margin: 5px;
+  padding: 5px;
 
   *:nth-child(2) {
     border-top: 1px solid black;
   }
 }
 
-number {
-  padding: 5px;
-  text-align: center;
-  background-color: rgba(0, 255, 0, .05);
-}
+// number {
+//   padding: 5px;
+//   text-align: center;
+//   background-color: rgba(0, 255, 0, .05);
+// }
 
-border {
+sqrt span {
+  display: inline-block;
   border-top: 1px solid #000;
 }
 
-p {
+formula {
   display: flex;
   align-items: center;
+
+  &:empty {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px dotted black
+  }
 }
 
-placeholder {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  border: 1px dotted black
+pow {
+  display: inline-flex;
+
+  > formula:nth-child(2) {
+    margin-bottom: calc(100% + 20px);
+    font-size: .9rem;
+  }
 }
+
+
+
+
+
+
+
+
 
 .ProseMirror {
   position: relative;
