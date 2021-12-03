@@ -16,9 +16,23 @@ fraction {
 //   background-color: rgba(0, 255, 0, .05);
 // }
 
-sqrt span {
+sqrt {
+
   display: inline-block;
-  border-top: 1px solid #000;
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 40px;
+    // display: inline-block;
+    // border-top: 1px solid #000;
+  }
+
+  // svg {
+  //   display: inline-block;
+  //   width: 200px;
+  //   height: 20px;
+  // }
 }
 
 formula {
@@ -36,14 +50,16 @@ formula {
 pow {
   display: inline-flex;
 
-  > formula:nth-child(2) {
+  >formula:nth-child(2) {
     margin-bottom: calc(100% + 20px);
     font-size: .9rem;
   }
 }
 
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid black;
 }
 

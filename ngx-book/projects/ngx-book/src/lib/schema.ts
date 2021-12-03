@@ -27,37 +27,37 @@ export const schema = new Schema({
       toDOM: () => ['p', 0],
     },
 
-    // formula: {
-    //   group: 'blockers',
-    //   content: "(text|math)*",
-    //   parseDOM: [{ tag: "formula" }],
-    //   toDOM() { return ["formula", 0] },
-    //   inline: true,
-    // },
+    formula: {
+      group: 'blockers',
+      content: "(text|math)*",
+      parseDOM: [{ tag: "formula" }],
+      toDOM() { return ["formula", 0] },
+      inline: true,
+    },
 
-    // fraction: {
-    //   group: "math",
-    //   content: 'formula{2}',
-    //   parseDOM: [{ tag: "fraction" }],
-    //   toDOM() { return ["fraction", 0] },
-    //   inline: true,
-    // },
+    fraction: {
+      group: "math",
+      content: 'formula{2}',
+      // parseDOM: [{ tag: "fraction" }],
+      // toDOM() { return ["fraction", 0] },
+      inline: true,
+    },
 
-    // sqrt: {
-    //   group: "math",
-    //   content: 'formula',
-    //   parseDOM: [{ tag: "sqrt" }],
-    //   toDOM: () => ['sqrt', '√', ['span', 0]],
-    //   inline: true,
-    // },
+    sqrt: {
+      group: "math",
+      content: 'formula',
+      parseDOM: [{ tag: "sqrt" }],
+      toDOM: () => ['sqrt', '√', ['span', 0]],
+      inline: true,
+    },
 
-    // pow: {
-    //   group: "math",
-    //   content: 'formula formula',
-    //   parseDOM: [{ tag: "pow" }],
-    //   toDOM: () => ['pow', 0],
-    //   inline: true,
-    // },
+    pow: {
+      group: "math",
+      content: 'formula formula',
+      parseDOM: [{ tag: "pow" }],
+      toDOM: () => ['pow', 0],
+      inline: true,
+    },
 
     table: {
       tableRole: 'table',
