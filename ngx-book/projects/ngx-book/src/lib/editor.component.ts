@@ -1,24 +1,22 @@
-import { DOMParser, Schema, Node as ProsemirrorNode } from 'prosemirror-model';
-import { addListNodes } from 'prosemirror-schema-list';
+import { DOMParser, Node as ProsemirrorNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { EditorView, NodeView, Decoration, DecorationSet } from 'prosemirror-view';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { exampleSetup } from './index';
+import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { GodSetup, schema } from './schema';
-
+import { TableView } from './tt-table/TableView';
 
 
 @Component({
   selector: 'nb-editor',
   template: `
-    <div id=editor style="margin-bottom: 23px"></div>
-
-    <div style="display: none" id="content">123</div>
+<div id=editor style="margin-bottom: 23px"></div>
+<div style="display: none" id="content">123</div>
   `,
   styleUrls: ['./style.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent implements OnInit {
+
 
   constructor() { }
 
@@ -30,9 +28,10 @@ export class EditorComponent implements OnInit {
           doc: DOMParser.fromSchema(schema).parse((document as any).querySelector("#content")),
           plugins: GodSetup(schema)
         }),
-        // nodeViews: {
-        //   fraction(node, view, getPos) { return new FractionView(node, view, getPos) }
-        // }
+        nodeViews: {
+          // fraction(node, view, getPos) { return new FractionView(node, view, getPos) }
+          table(node, view, getPos) { return new TableView(node, 200) }
+        }
       }
     )
   }

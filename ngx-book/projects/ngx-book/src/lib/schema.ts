@@ -10,6 +10,7 @@ import { menuBar } from "prosemirror-menu"
 
 import { buildKeymap } from "./keymap"
 import { buildInputRules } from "./inputrules"
+import { createTable } from "./tt-table/utilities/createTable";
 
 export { buildKeymap, buildInputRules }
 
@@ -17,51 +18,81 @@ export const schema = new Schema({
   nodes: {
 
     doc: {
-      content: "formula"
+      content: "blockers*"
     },
 
-    formula: {
-      content: "(text|math)*",
-      parseDOM: [{ tag: "formula" }],
-      toDOM() { return ["formula", 0] },
-      inline: true,
+    p: {
+      group: 'blockers',
+      content: 'text*',
+      toDOM: () => ['p', 0],
     },
 
-    fraction: {
-      group: "math",
-      content: 'formula{2}',
-      parseDOM: [{ tag: "fraction" }],
-      toDOM() { return ["fraction", 0] },
-      inline: true,
+    // formula: {
+    //   group: 'blockers',
+    //   content: "(text|math)*",
+    //   parseDOM: [{ tag: "formula" }],
+    //   toDOM() { return ["formula", 0] },
+    //   inline: true,
+    // },
+
+    // fraction: {
+    //   group: "math",
+    //   content: 'formula{2}',
+    //   parseDOM: [{ tag: "fraction" }],
+    //   toDOM() { return ["fraction", 0] },
+    //   inline: true,
+    // },
+
+    // sqrt: {
+    //   group: "math",
+    //   content: 'formula',
+    //   parseDOM: [{ tag: "sqrt" }],
+    //   toDOM: () => ['sqrt', '√', ['span', 0]],
+    //   inline: true,
+    // },
+
+    // pow: {
+    //   group: "math",
+    //   content: 'formula formula',
+    //   parseDOM: [{ tag: "pow" }],
+    //   toDOM: () => ['pow', 0],
+    //   inline: true,
+    // },
+
+    table: {
+      tableRole: 'table',
+      group: 'blockers',
+      content: 'tableRow+',
+      isolating: true,
     },
 
-
-
-    sqrt: {
-      group: "math",
-      content: 'formula',
-      parseDOM: [{ tag: "sqrt" }],
-      toDOM: () => ['sqrt', '√', ['span', 0]],
-      inline: true,
+    tableRow: {
+      tableRole: 'row',
+      // inline: true,
+      content: '(tableCell | tableHeader)*',
+      parseDOM: [{ tag: 'tr' }],
+      toDOM: () => ['tr', 0],
     },
 
+    tableHeader: {
+      tableRole: 'header_cell',
+      // inline: true,
+      content: 'text*',
+      isolating: true,
+      parseDOM: [{ tag: 'th' }],
+      toDOM: () => ['th', 0],
+    },
 
-    pow: {
-      group: "math",
-      content: 'formula formula',
-      parseDOM: [{ tag: "pow" }],
-      toDOM: () => ['pow', 0],
-      inline: true,
+    tableCell: {
+      tableRole: 'cell',
+      // inline: true,
+      content: 'text*',
+      isolating: true,
+      parseDOM: [{ tag: 'td' }],
+      toDOM: () => ['td', 0],
     },
 
     text: {},
-
-
-
-
-
-
-
 
   },
   marks: {}
@@ -142,7 +173,17 @@ export function buildMenuItems(schema: Schema) {
     run(state, dispatch) { insertPow(state, dispatch) }
   })
 
-  return [[insertFractionItem], [insertSqrtItem], [insertPowItem]]
+  const insertTable = new MenuItem({
+    title: "Insert Table",
+    label: "Insert Table",
+    enable(state) { return true },
+    run(state, dispatch) {
+      const node = createTable(schema, 2, 2, false);
+      dispatch(state.tr.replaceSelectionWith(node));
+    }
+  })
+
+  return [[insertFractionItem], [insertSqrtItem], [insertPowItem], [insertTable]]
 }
 
 // ================================
@@ -155,7 +196,7 @@ export function GodSetup(schema: Schema) {
     keymap(buildKeymap(schema, null) as any),
     keymap(baseKeymap),
     dropCursor(),
-    gapCursor()
+    gapCursor(),
   ];
 
   plugins.push(menuBar({
