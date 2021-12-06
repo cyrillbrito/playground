@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-oo<nb-sqrt-svg-tall [width]="width" [height]="height"></nb-sqrt-svg-tall>
+<nb-sqrt-svg-tall [fontSize]="fontSize"></nb-sqrt-svg-tall>
 
-<label> width
-<input [(ngModel)]="width">
-</label>
 
-<label> width
-<input [(ngModel)]="height">
+<br>
+<br>
+<label> font
+<input type="number" step="1" [(ngModel)]="fontSize">
 </label>
 `,
   styles: [`
@@ -20,6 +19,5 @@ oo<nb-sqrt-svg-tall [width]="width" [height]="height"></nb-sqrt-svg-tall>
 export class AppComponent {
   title = 'ngx-rich';
 
-  width = 200;
-  height = 200;
+  fontSize = 16;
 }

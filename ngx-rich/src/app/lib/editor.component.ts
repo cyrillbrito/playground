@@ -3,7 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GodSetup, schema } from './schema';
-import { makeSqrtImage } from './sqrt-svg/sqrt-tall-only';
+import { sqrtTall } from './sqrt-svg/sqrt-tall-only';
 
 
 @Component({
@@ -130,7 +130,7 @@ class SqrtView implements NodeView<typeof schema> {
     this.svg.setAttribute('viewBox', `0 0 4000 ${height * 50}`);
     this.svg.setAttribute('height', `${height}px`);
 
-    this.path.setAttribute('d', makeSqrtImage(height / 10));
+    this.path.setAttribute('d', sqrtTall(height / 10));
 
   }
 
