@@ -1,10 +1,10 @@
 
 import { Component, ElementRef, HostBinding, Input, OnChanges, ViewChild } from '@angular/core';
-import { sqrtTall, sqrtMain } from './sqrt-tall-only';
+import { sqrtTall, sqrtMain } from './sqrt-paths';
 
 
 @Component({
-  selector: 'nb-sqrt-svg-tall',
+  selector: 'nb-sqrt',
   template: `
 <svg [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 400000 ' + viewBoxHeight" preserveAspectRatio="xMinYMin slice">
   <path [attr.d]="points"></path>
@@ -26,7 +26,7 @@ import { sqrtTall, sqrtMain } from './sqrt-tall-only';
   
   `]
 })
-export class SqrtSvgTallComponent implements OnChanges {
+export class SqrtComponent implements OnChanges {
 
   @HostBinding('style.font-size.px')
   @Input() fontSize: number = 16;

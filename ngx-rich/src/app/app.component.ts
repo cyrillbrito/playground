@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-<nb-sqrt-svg-tall [fontSize]="fontSize"></nb-sqrt-svg-tall>
+<nb-sqrt [fontSize]="fontSize"></nb-sqrt>
 
 
 <br>

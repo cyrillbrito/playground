@@ -3,16 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { EditorComponent } from './lib/editor.component';
-import { SqrtSvgTallComponent } from './lib/sqrt-svg/sqrt-svg-tall.component';
-import { SqrtSvgComponent } from './lib/sqrt-svg/sqrt-svg.component';
+import { SqrtComponent } from './lib/sqrt-svg/sqrt.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
-    SqrtSvgComponent,
-    SqrtSvgTallComponent,
+    SqrtComponent,
   ],
   imports: [
     BrowserModule,

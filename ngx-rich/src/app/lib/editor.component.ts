@@ -3,7 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GodSetup, schema } from './schema';
-import { sqrtTall } from './sqrt-svg/sqrt-tall-only';
+import { sqrtTall } from './sqrt-svg/sqrt-paths';
 
 
 @Component({
