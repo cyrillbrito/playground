@@ -1,14 +1,12 @@
 {
-  "name": "ngx-book",
+  "name": "ngx-rich",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
-    "build-storybook": "npm run docs:json && build-storybook"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -34,18 +32,10 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.0.3",
-    "@angular/cli": "~13.0.3",
+    "@angular-devkit/build-angular": "~13.0.4",
+    "@angular/cli": "~13.0.4",
     "@angular/compiler-cli": "~13.0.0",
-    "@angular/elements": "^13.0.2",
-    "@babel/core": "^7.16.0",
-    "@compodoc/compodoc": "^1.1.16",
-    "@storybook/addon-actions": "^6.4.8",
-    "@storybook/addon-essentials": "^6.4.8",
-    "@storybook/addon-links": "^6.4.8",
-    "@storybook/angular": "^6.4.8",
-    "@storybook/builder-webpack5": "^6.4.8",
-    "@storybook/manager-webpack5": "^6.4.8",
+    "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "@types/prosemirror-commands": "^1.0.4",
     "@types/prosemirror-dropcursor": "^1.0.3",
@@ -56,9 +46,12 @@
     "@types/prosemirror-menu": "^1.0.6",
     "@types/prosemirror-schema-list": "^1.0.3",
     "@types/prosemirror-state": "^1.2.8",
-    "@webcomponents/custom-elements": "^1.5.0",
-    "babel-loader": "^8.2.3",
-    "ng-packagr": "^13.0.0",
+    "jasmine-core": "~3.10.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.4.3"
   }
 }

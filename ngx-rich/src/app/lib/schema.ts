@@ -32,7 +32,7 @@ export const schema = new Schema({
       content: "(text|math)*",
       parseDOM: [{ tag: "formula" }],
       toDOM() { return ["formula", 0] },
-      inline: true,
+      
     },
 
     fraction: {
