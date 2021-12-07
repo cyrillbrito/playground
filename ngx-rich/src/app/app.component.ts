@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `
-<nb-sqrt [fontSize]="fontSize"></nb-sqrt>
+<!-- <nb-sqrt [fontSize]="fontSize"></nb-sqrt>
 
 
 <br>
-<br>
+<br> -->
 <label> font
 <input type="number" step="1" [(ngModel)]="fontSize">
 </label>
+
+<br><br>
+<nb-editor></nb-editor>
 `,
   styles: [`
   
@@ -19,5 +22,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ngx-rich';
 
+  @HostBinding('style.font-size.px')
   fontSize = 16;
 }

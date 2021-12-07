@@ -1,16 +1,16 @@
-import { MenuItem } from "prosemirror-menu";
-import { Schema } from "prosemirror-model"
-import { keymap } from "prosemirror-keymap"
-import { history } from "prosemirror-history"
-import { baseKeymap } from "prosemirror-commands"
-import { EditorState, Plugin } from "prosemirror-state"
-import { dropCursor } from "prosemirror-dropcursor"
-import { gapCursor } from "prosemirror-gapcursor"
-import { menuBar } from "prosemirror-menu"
+import { baseKeymap } from 'prosemirror-commands';
+import { dropCursor } from 'prosemirror-dropcursor';
+import { gapCursor } from 'prosemirror-gapcursor';
+import { history } from 'prosemirror-history';
+import { keymap } from 'prosemirror-keymap';
+import { menuBar, MenuItem } from 'prosemirror-menu';
+import { Schema } from 'prosemirror-model';
+import { EditorState, Plugin } from 'prosemirror-state';
+import { buildInputRules } from './inputrules';
+import { buildKeymap } from './keymap';
+import { FracNodeSpec } from './pluggin/frac';
+import { SqrtNodeSpec } from './pluggin/sqrt';
 
-import { buildKeymap } from "./keymap"
-import { buildInputRules } from "./inputrules"
-import { createTable } from "./tt-table/utilities/createTable";
 
 export { buildKeymap, buildInputRules }
 
@@ -35,21 +35,8 @@ export const schema = new Schema({
       
     },
 
-    fraction: {
-      group: "math",
-      content: 'formula{2}',
-      // parseDOM: [{ tag: "fraction" }],
-      // toDOM() { return ["fraction", 0] },
-      inline: true,
-    },
-
-    sqrt: {
-      group: "math",
-      content: 'formula',
-      parseDOM: [{ tag: "sqrt" }],
-      toDOM: () => ['sqrt', '√', ['span', 0]],
-      inline: true,
-    },
+    frac: FracNodeSpec,
+    sqrt: SqrtNodeSpec,
 
     pow: {
       group: "math",
@@ -57,39 +44,6 @@ export const schema = new Schema({
       parseDOM: [{ tag: "pow" }],
       toDOM: () => ['pow', 0],
       inline: true,
-    },
-
-    table: {
-      tableRole: 'table',
-      group: 'blockers',
-      content: 'tableRow+',
-      isolating: true,
-    },
-
-    tableRow: {
-      tableRole: 'row',
-      // inline: true,
-      content: '(tableCell | tableHeader)*',
-      parseDOM: [{ tag: 'tr' }],
-      toDOM: () => ['tr', 0],
-    },
-
-    tableHeader: {
-      tableRole: 'header_cell',
-      // inline: true,
-      content: 'text*',
-      isolating: true,
-      parseDOM: [{ tag: 'th' }],
-      toDOM: () => ['th', 0],
-    },
-
-    tableCell: {
-      tableRole: 'cell',
-      // inline: true,
-      content: 'text*',
-      isolating: true,
-      parseDOM: [{ tag: 'td' }],
-      toDOM: () => ['td', 0],
     },
 
     text: {},
@@ -102,7 +56,7 @@ export const schema = new Schema({
 
 // ================================
 
-let fracType = schema.nodes.fraction
+let fracType = schema.nodes.frac
 let formulaT = schema.nodes.formula;
 let numberT = schema.nodes.number;
 // let placeholderT = schema.nodes.placeholder;
@@ -173,17 +127,7 @@ export function buildMenuItems(schema: Schema) {
     run(state, dispatch) { insertPow(state, dispatch) }
   })
 
-  const insertTable = new MenuItem({
-    title: "Insert Table",
-    label: "Insert Table",
-    enable(state) { return true },
-    run(state, dispatch) {
-      const node = createTable(schema, 2, 2, false);
-      dispatch(state.tr.replaceSelectionWith(node));
-    }
-  })
-
-  return [[insertFractionItem], [insertSqrtItem], [insertPowItem], [insertTable]]
+  return [[insertFractionItem], [insertSqrtItem], [insertPowItem]]
 }
 
 // ================================

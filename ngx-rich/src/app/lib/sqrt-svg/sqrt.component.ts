@@ -28,7 +28,6 @@ import { sqrtTall, sqrtMain } from './sqrt-paths';
 })
 export class SqrtComponent implements OnChanges {
 
-  @HostBinding('style.font-size.px')
   @Input() fontSize: number = 16;
 
   @ViewChild('span') spanRef: ElementRef<HTMLElement>;
