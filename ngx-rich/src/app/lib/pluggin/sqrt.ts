@@ -6,7 +6,7 @@ import { sqrtMain, sqrtTall } from '../sqrt-svg/sqrt-paths';
 
 export const SqrtNodeSpec: NodeSpec = {
   group: "math",
-  content: 'formula',
+  content: 'container',
   inline: true,
 };
 

@@ -8,7 +8,8 @@ import { Schema } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { buildInputRules } from './inputrules';
 import { buildKeymap } from './keymap';
-import { FracNodeSpec } from './pluggin/frac';
+import { ContainerNodeSpec } from './pluggin/container';
+import { FracNodeSpec, insertFrac } from './pluggin/frac';
 import { SqrtNodeSpec } from './pluggin/sqrt';
 
 
@@ -18,21 +19,13 @@ export const schema = new Schema({
   nodes: {
 
     doc: {
-      content: "blockers*"
-    },
-
-    p: {
-      group: 'blockers',
-      content: 'text*',
-      toDOM: () => ['p', 0],
+      content: "formula",
     },
 
     formula: {
-      group: 'blockers',
-      content: "(text|math)*",
+      content: "math*",
       parseDOM: [{ tag: "formula" }],
       toDOM() { return ["formula", 0] },
-      
     },
 
     frac: FracNodeSpec,
@@ -40,13 +33,24 @@ export const schema = new Schema({
 
     pow: {
       group: "math",
-      content: 'formula formula',
+      content: 'container container',
       parseDOM: [{ tag: "pow" }],
       toDOM: () => ['pow', 0],
       inline: true,
     },
 
-    text: {},
+    container: ContainerNodeSpec,
+
+    placeholder: {
+      parseDOM: [{ tag: "placeholder" }],
+      toDOM: () => ['placeholder'],
+      inline: true,
+      atom: true,
+    },
+
+    text: {
+      group: "math"
+    },
 
   },
   marks: {}
@@ -64,17 +68,6 @@ let borderT = schema.nodes.border;
 let sqrtT = schema.nodes.sqrt;
 let powT = schema.nodes.pow;
 
-function insertFrac(state: EditorState<any>, dispatch: any) {
-  let { $from } = state.selection, index = $from.index()
-
-  if (dispatch) {
-    // const spans = [numberT.create(null, placeholderT.create()), numberT.create(null, placeholderT.create())]
-    const spans = [formulaT.create(), formulaT.create()]
-    dispatch(state.tr.insert($from.pos, fracType.create(null, spans)))
-    // dispatch(state.tr.insert($from.pos, fracType.create()))
-  }
-  return true
-}
 
 function insertSqrt(state: EditorState<any>, dispatch: any) {
   let { $from } = state.selection, index = $from.index()
@@ -110,7 +103,7 @@ export function buildMenuItems(schema: Schema) {
     title: "Insert fraction",
     label: "Insert fraction",
     enable(state) { return true },
-    run(state, dispatch) { insertFrac(state, dispatch) }
+    run: insertFrac
   })
 
   const insertSqrtItem = new MenuItem({

@@ -5,16 +5,10 @@ fraction {
   margin: 5px;
   padding: 5px;
 
-  *:nth-child(2) {
+  >*:nth-child(2) {
     border-top: 0.04em solid black;
   }
 }
-
-// number {
-//   padding: 5px;
-//   text-align: center;
-//   background-color: rgba(0, 255, 0, .05);
-// }
 
 sqrt {
 
@@ -35,16 +29,23 @@ sqrt {
   // }
 }
 
+container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 formula {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
 
-  &:empty {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    border: 1px dotted black
-  }
+placeholder {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  border: 1px dotted black
 }
 
 pow {
