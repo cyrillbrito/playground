@@ -1,6 +1,6 @@
 fraction {
   display: inline-flex;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 0, 0, 0.05);
   flex-direction: column;
   margin: 5px;
   padding: 5px;
@@ -13,6 +13,7 @@ fraction {
 sqrt {
   display: inline-flex;
   position: relative;
+  background-color: rgba(0, 255, 0, 0.05);
 
   svg {
     position: absolute;
@@ -50,6 +51,7 @@ formula {
 
 pow {
   display: inline-flex;
+  background-color: rgba(0, 0, 255, 0.05);
 
   > formula:nth-child(2) {
     margin-bottom: calc(100% + 20px);

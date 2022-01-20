@@ -1,13 +1,38 @@
 import { Node as ProsemirrorNode, NodeSpec } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
+import { OurMathSchema } from '../editor.component';
 import { sqrtMain, sqrtTall } from '../sqrt-svg/sqrt-paths';
 
 
 export const SqrtNodeSpec: NodeSpec = {
   group: "math",
   content: 'container',
+  parseDOM: [{ tag: "sqrt" }],
   inline: true,
 };
+
+export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch: (p: Transaction<OurMathSchema>) => void, view: EditorView<OurMathSchema>, event: Event) {
+
+  if (!dispatch) {
+    // This is a test, in the code examples there was this validation
+    // I don't know if this is useful
+    debugger;
+    console.error('!dispach test')
+  }
+
+  const containerNode = state.schema.nodes.container.create();
+  const sqrtNode = state.schema.nodes.sqrt.create(null, [containerNode]);
+
+  let transaction = state.tr.replaceSelectionWith(sqrtNode);
+
+  // const resolvedPos = transaction.doc.resolve(
+  //   transaction.selection.anchor - transaction.selection.$anchor.nodeBefore.nodeSize
+  // );
+  // transaction.setSelection(new NodeSelection(resolvedPos));
+
+  dispatch(transaction);
+}
 
 export class SqrtNodeView implements NodeView {
 
@@ -100,4 +125,3 @@ export class SqrtNodeView implements NodeView {
     console.log('destroy');
   }
 }
-
