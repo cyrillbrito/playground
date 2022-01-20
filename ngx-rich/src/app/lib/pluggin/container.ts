@@ -5,12 +5,10 @@ import { schema } from '../schema';
 
 
 export const ContainerNodeSpec: NodeSpec = {
-  content: "placeholder|math+",
+  content: "math*",
   parseDOM: [{ tag: "container" }],
   toDOM: () => ['container', 0],
   inline: true,
-
-
 };
 
 
@@ -20,16 +18,21 @@ export class ContainerNodeView implements NodeView<typeof schema> {
   contentDOM?: Node;
 
   constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, private getPos: boolean | (() => number)) {
+    console.log('ContainerNodeView contruct', node);
     this.dom = this.contentDOM = document.createElement('container');
-    this.dom.setAttribute('ola', 'adeus');
   }
 
   update(node: ProsemirrorNode<typeof schema>, decorations: Decoration[], innerDecorations: DecorationSet) {
-    console.log('ContainerNodeView update');
+
+    console.log('ContainerNodeView update', node);
 
     if (node.type.name !== 'container') {
       debugger;
       return false;
+    }
+
+    if (node.content.size === 0) {
+      // debugger;
     }
 
     return true
@@ -53,7 +56,7 @@ export class ContainerNodeView implements NodeView<typeof schema> {
   }
 
   ignoreMutation(p: MutationRecord | { type: 'selection', target: Element }): boolean {
-    console.log('ContainerNodeView ignoreMutation');
+    console.log('ContainerNodeView ignoreMutation', p);
     return false;
   }
 

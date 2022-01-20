@@ -1,38 +1,44 @@
 fraction {
   display: inline-flex;
-  background-color: rgba(0, 0, 0, .05);
+  background-color: rgba(0, 0, 0, 0.05);
   flex-direction: column;
   margin: 5px;
   padding: 5px;
 
-  >*:nth-child(2) {
+  > *:nth-child(2) {
     border-top: 0.04em solid black;
   }
 }
 
 sqrt {
-
   display: inline-flex;
   position: relative;
 
-  span {
+  svg {
     position: absolute;
-    left: .8em;
-    // display: inline-block;
-    // border-top: 1px solid #000;
   }
 
-  // svg {
-  //   display: inline-block;
-  //   width: 200px;
-  //   height: 20px;
-  // }
+  span {
+    margin: 0.1em 0.1em 0 0.8em;
+  }
 }
 
 container {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:empty {
+    border: 1px dotted;
+    width: 1em;
+    height: 1em;
+    cursor: none;
+    caret-color: transparent;
+  }
+
+  &.selected {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
 }
 
 formula {
@@ -41,34 +47,21 @@ formula {
   justify-content: center;
 }
 
-placeholder {
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  border: 1px dotted black
-}
 
 pow {
   display: inline-flex;
 
-  >formula:nth-child(2) {
+  > formula:nth-child(2) {
     margin-bottom: calc(100% + 20px);
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 }
-
 
 table,
 th,
 td {
   border: 1px solid black;
 }
-
-
-
-
-
-
 
 .ProseMirror {
   position: relative;
@@ -80,7 +73,7 @@ td {
   white-space: break-spaces;
   -webkit-font-variant-ligatures: none;
   font-variant-ligatures: none;
-  font-feature-settings: "liga"0;
+  font-feature-settings: "liga" 0;
   /* the above doesn't seem to work in Edge */
 }
 
@@ -182,7 +175,7 @@ img.ProseMirror-separator {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 4px solid currentColor;
-  opacity: .6;
+  opacity: 0.6;
   position: absolute;
   right: 4px;
   top: calc(50% - 2px);
@@ -221,7 +214,7 @@ img.ProseMirror-separator {
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 4px solid currentColor;
-  opacity: .6;
+  opacity: 0.6;
   position: absolute;
   right: 4px;
   top: calc(50% - 4px);
@@ -240,7 +233,7 @@ img.ProseMirror-separator {
 }
 
 .ProseMirror-menu-disabled {
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu,
@@ -268,7 +261,7 @@ img.ProseMirror-separator {
 
 .ProseMirror-icon {
   display: inline-block;
-  line-height: .8;
+  line-height: 0.8;
   vertical-align: -2px;
   /* Compensate for padding */
   padding: 2px 8px;
@@ -353,7 +346,7 @@ img.ProseMirror-separator {
   position: fixed;
   border-radius: 3px;
   z-index: 11;
-  box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
+  box-shadow: -0.5px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .ProseMirror-prompt h5 {
