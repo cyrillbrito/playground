@@ -1,7 +1,5 @@
 import { Node as ProsemirrorNode, NodeSpec } from 'prosemirror-model';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
-import { schema } from '../schema';
 
 
 export const ContainerNodeSpec: NodeSpec = {
@@ -12,17 +10,17 @@ export const ContainerNodeSpec: NodeSpec = {
 };
 
 
-export class ContainerNodeView implements NodeView<typeof schema> {
+export class ContainerNodeView implements NodeView {
 
   dom?: Element;
   contentDOM?: Node;
 
-  constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, private getPos: boolean | (() => number)) {
+  constructor(node: ProsemirrorNode, view: EditorView, private getPos: boolean | (() => number)) {
     console.log('ContainerNodeView contruct', node);
     this.dom = this.contentDOM = document.createElement('container');
   }
 
-  update(node: ProsemirrorNode<typeof schema>, decorations: Decoration[], innerDecorations: DecorationSet) {
+  update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
 
     console.log('ContainerNodeView update', node);
 

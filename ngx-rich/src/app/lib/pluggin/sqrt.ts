@@ -1,6 +1,5 @@
 import { Node as ProsemirrorNode, NodeSpec } from 'prosemirror-model';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
-import { schema } from '../schema';
 import { sqrtMain, sqrtTall } from '../sqrt-svg/sqrt-paths';
 
 
@@ -10,7 +9,7 @@ export const SqrtNodeSpec: NodeSpec = {
   inline: true,
 };
 
-export class SqrtNodeView implements NodeView<typeof schema> {
+export class SqrtNodeView implements NodeView {
 
   dom?: Element;
   contentDOM?: Element;
@@ -20,7 +19,7 @@ export class SqrtNodeView implements NodeView<typeof schema> {
 
   fontSize = 16;
 
-  constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, getPos: boolean | (() => number)) {
+  constructor(node: ProsemirrorNode, view: EditorView, getPos: boolean | (() => number)) {
     console.log('constructor');
     this.dom = document.createElement('sqrt');
 
@@ -37,7 +36,7 @@ export class SqrtNodeView implements NodeView<typeof schema> {
     this.updateHeight(0);
   }
 
-  update(node: ProsemirrorNode<typeof schema>, decorations: Decoration[], innerDecorations: DecorationSet) {
+  update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
 
     console.log('update');
 

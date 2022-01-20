@@ -1,7 +1,6 @@
 import { Node as ProsemirrorNode, NodeSpec } from 'prosemirror-model';
 import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
-import { schema } from '../schema';
 
 
 export const FracNodeSpec: NodeSpec = {
@@ -12,7 +11,7 @@ export const FracNodeSpec: NodeSpec = {
   inline: true,
 };
 
-export function insertFrac(state: EditorState<typeof schema>, dispatch: (p: Transaction<typeof schema>) => void, editorView: EditorView<typeof schema>, event: Event) {
+export function insertFrac(state: EditorState, dispatch: (p: Transaction) => void, editorView: EditorView, event: Event) {
 
   const containerType = state.schema.nodes.container;
   const fracType = state.schema.nodes.frac;
@@ -32,7 +31,7 @@ export function insertFrac(state: EditorState<typeof schema>, dispatch: (p: Tran
   if (from !== to) {
     const slice = state.doc.slice(state.selection.from, state.selection.to);
     topContainer.content = slice.content;
-  } 
+  }
 
   const fracNode = fracType.create(null, [topContainer, bottomContainer]);
 
@@ -49,18 +48,18 @@ export function insertFrac(state: EditorState<typeof schema>, dispatch: (p: Tran
 }
 
 
-export class FracNodeView implements NodeView<typeof schema> {
+export class FracNodeView implements NodeView {
 
   dom?: Element;
   contentDOM?: Node;
 
-  constructor(node: ProsemirrorNode<typeof schema>, view: EditorView<typeof schema>, getPos: boolean | (() => number)) {
+  constructor(node: ProsemirrorNode, view: EditorView, getPos: boolean | (() => number)) {
     console.log('constructor');
     this.dom = this.contentDOM = document.createElement('fraction');
     // if (node.content.size == 0) this.dom.classList.add('empty')
   }
 
-  update(node: ProsemirrorNode<typeof schema>, decorations: Decoration[], innerDecorations: DecorationSet) {
+  update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
     console.log('update');
     if (node.type.name != 'fraction') return false
     if (node.content.size > 0) this.dom.classList.remove('empty')
