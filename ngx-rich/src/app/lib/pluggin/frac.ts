@@ -51,7 +51,14 @@ export class FracNodeView implements NodeView {
 
   constructor(node: ProsemirrorNode, view: EditorView, getPos: boolean | (() => number)) {
     console.log('constructor');
-    this.dom = this.contentDOM = document.createElement('fraction');
+
+    this.dom = document.createElement('frac');
+    this.contentDOM = document.createElement('content');
+    const blankDOM = document.createElement('blank');
+
+    this.dom.appendChild(this.contentDOM);
+    this.dom.appendChild(blankDOM);
+
     // if (node.content.size == 0) this.dom.classList.add('empty')
   }
 

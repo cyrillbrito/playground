@@ -1,19 +1,34 @@
-fraction {
-  display: inline-flex;
+
+frac {
+  display: inline-block;
+  text-align: center;
+  vertical-align: -0.5em;
+
   background-color: rgba(255, 0, 0, 0.05);
-  flex-direction: column;
-  margin: 5px;
   padding: 5px;
 
-  > *:nth-child(2) {
-    border-top: 0.04em solid black;
+  content {
+    // > :nth-child(1) {
+    //   display: block;
+    // }
+
+    > :nth-child(2) {
+      // display: block;
+      width: 100%;
+      float: right;
+      border-top: 1px solid black;
+    }
+  }
+
+  blank {
+    display: inline-block;
   }
 }
 
 sqrt {
-  display: inline-flex;
+  display: inline-block;
   position: relative;
-  background-color: rgba(0, 255, 0, 0.05);
+  // background-color: rgba(0, 255, 0, 0.05);
 
   svg {
     position: absolute;
@@ -25,16 +40,18 @@ sqrt {
 }
 
 container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 
   &:empty {
-    border: 1px dotted;
-    width: 1em;
-    height: 1em;
+    // border: 1px dotted;
+    min-width: 1em;
+    min-height: 1em;
     cursor: none;
     caret-color: transparent;
+
+    &:before {
+      content: "⬚";
+    }
   }
 
   &.selected {
@@ -43,19 +60,16 @@ container {
 }
 
 formula {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
 }
 
-
 pow {
-  display: inline-flex;
-  background-color: rgba(0, 0, 255, 0.05);
+  display: inline-block;
+  // background-color: rgba(0, 0, 255, 0.05);
 
-  > formula:nth-child(2) {
-    margin-bottom: calc(100% + 20px);
-    font-size: 0.9rem;
+  > container {
+    margin-bottom: 0.8em;
+    font-size: 0.7rem;
   }
 }
 

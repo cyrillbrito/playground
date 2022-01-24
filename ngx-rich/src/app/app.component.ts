@@ -2,22 +2,8 @@ import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-<!-- <nb-sqrt [fontSize]="fontSize"></nb-sqrt>
-
-
-<br>
-<br> -->
-<label> font
-<input type="number" step="1" [(ngModel)]="fontSize">
-</label>
-
-<br><br>
-<nb-editor></nb-editor>
-`,
-  styles: [`
-  
-`]
+  templateUrl: './app.component.html',
+  styleUrls: ['./a.css', './b.scss']
 })
 export class AppComponent {
   title = 'ngx-rich';

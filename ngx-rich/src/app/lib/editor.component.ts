@@ -1,17 +1,13 @@
-import { DOMParser } from 'prosemirror-model';
-import { EditorState, NodeSelection, Selection } from 'prosemirror-state';
+import { menuBar, MenuItem } from 'prosemirror-menu';
+import { DOMParser, Schema } from 'prosemirror-model';
+import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { InsertSqrt, SqrtNodeView } from './pluggin/sqrt';
-import { ContainerNodeView } from './pluggin/container';
-import { menuBar, MenuItem } from 'prosemirror-menu';
-import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
 import { ContainerNodeSpec } from './pluggin/container';
 import { FracNodeSpec, FracNodeView, InsertFrac } from './pluggin/frac';
-import { SqrtNodeSpec } from './pluggin/sqrt';
 import { PluginSelected } from './pluggin/plug';
 import { InsertPow, PowNodeSpec } from './pluggin/pow';
+import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
 
 
 const schema = new Schema({
@@ -33,6 +29,13 @@ const schema = new Schema({
     sqrt: SqrtNodeSpec,
     pow: PowNodeSpec,
 
+    // span: {
+    //   group: 'math',
+    //   content: "text*",
+    //   parseDOM: [{ tag: "span" }],
+    //   toDOM() { return ["span", 0] },
+    //   inline: true
+    // },
     text: {
       group: "math"
     },
@@ -78,6 +81,7 @@ const plugins: Plugin[] = [
 @Component({
   selector: 'nb-editor',
   template: `
+  <button (click)="export()">Export</button>
 <div id=editor style='margin-bottom: 23px'></div>
 <div style='display: none' id='content'>123+456+009988</div>
   `,
@@ -86,15 +90,17 @@ const plugins: Plugin[] = [
 })
 export class EditorComponent implements OnInit {
 
+  view: EditorView;
 
   constructor() { }
 
   ngOnInit(): void {
-    (window as any).view = new EditorView(
+    this.view = new EditorView(
       (document as any).querySelector('#editor'),
       {
         state: EditorState.create({
           doc: DOMParser.fromSchema(schema).parse((document as any).querySelector('#content')),
+          // doc: Node.fromJSON(schema, null),
           plugins
         }),
         nodeViews: {
@@ -104,7 +110,12 @@ export class EditorComponent implements OnInit {
         },
 
       }
-    )
+    );
+    (window as any).view = this.view;
+  }
+
+  export(): void {
+    console.log(this.view.state.toJSON());
   }
 
 }
