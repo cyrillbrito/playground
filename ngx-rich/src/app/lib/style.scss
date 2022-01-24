@@ -1,26 +1,24 @@
-
 frac {
   display: inline-block;
   text-align: center;
   vertical-align: -0.5em;
 
   background-color: rgba(255, 0, 0, 0.05);
-  padding: 5px;
 
-  content {
-    // > :nth-child(1) {
-    //   display: block;
-    // }
+  > content {
+    > :nth-child(1) {
+      display: block;
+    }
 
     > :nth-child(2) {
-      // display: block;
+      display: block;
       width: 100%;
       float: right;
       border-top: 1px solid black;
     }
   }
 
-  blank {
+  > blank {
     display: inline-block;
   }
 }
@@ -28,19 +26,21 @@ frac {
 sqrt {
   display: inline-block;
   position: relative;
-  // background-color: rgba(0, 255, 0, 0.05);
 
-  svg {
+  background-color: rgba(0, 255, 0, 0.05);
+
+  > svg {
     position: absolute;
   }
 
-  span {
+  > content {
+    display: inline-block;
     margin: 0.1em 0.1em 0 0.8em;
   }
 }
 
 container {
-  display: block;
+  display: inline-block;
 
   &:empty {
     // border: 1px dotted;
@@ -65,12 +65,8 @@ formula {
 
 pow {
   display: inline-block;
-  // background-color: rgba(0, 0, 255, 0.05);
-
-  > container {
-    margin-bottom: 0.8em;
-    font-size: 0.7rem;
-  }
+  font-size: 0.7em;
+  vertical-align: 0.5em;
 }
 
 table,

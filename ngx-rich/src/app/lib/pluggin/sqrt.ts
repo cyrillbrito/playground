@@ -36,8 +36,8 @@ export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch: (p: Tran
 
 export class SqrtNodeView implements NodeView {
 
-  dom?: Element;
-  contentDOM?: Element;
+  dom?: HTMLElement;
+  contentDOM?: HTMLElement;
 
   svg: SVGElement;
   path: SVGPathElement;
@@ -45,7 +45,7 @@ export class SqrtNodeView implements NodeView {
   fontSize = 16;
 
   constructor(node: ProsemirrorNode, view: EditorView, getPos: boolean | (() => number)) {
-    console.log('constructor');
+
     this.dom = document.createElement('sqrt');
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -55,7 +55,7 @@ export class SqrtNodeView implements NodeView {
     this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     this.svg.appendChild(this.path);
 
-    this.contentDOM = document.createElement('span');
+    this.contentDOM = document.createElement('content');
     this.dom.appendChild(this.contentDOM);
 
     this.updateHeight(0);
@@ -71,13 +71,13 @@ export class SqrtNodeView implements NodeView {
 
     this.updateHeight(this.contentDOM.clientHeight);
 
-    return true
+    return true;
   }
 
   private updateHeight(height: number): void {
 
-    const contentW = (this.contentDOM.clientWidth / this.fontSize) || 1;
-    const contentH = (this.contentDOM.clientHeight / this.fontSize) || 1;
+    const contentW = (this.contentDOM.offsetWidth / this.fontSize) || 1;
+    const contentH = (this.contentDOM.offsetHeight / this.fontSize) || 1;
 
     const sqrtW = .8 + contentW + .1;
 
@@ -96,7 +96,6 @@ export class SqrtNodeView implements NodeView {
     }
 
     this.path.setAttribute('d', points);
-
   }
 
   selectNode(): void {
