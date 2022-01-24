@@ -21,8 +21,8 @@ export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch: (p: Tran
     console.error('!dispach test')
   }
 
-  const containerNode = state.schema.nodes.container.create();
-  const sqrtNode = state.schema.nodes.sqrt.create(null, [containerNode]);
+  const containerNode = state.schema.nodes.container.createChecked();
+  const sqrtNode = state.schema.nodes.sqrt.createChecked(null, [containerNode]);
 
   let transaction = state.tr.replaceSelectionWith(sqrtNode);
 
@@ -59,11 +59,12 @@ export class SqrtNodeView implements NodeView {
     this.dom.appendChild(this.contentDOM);
 
     this.updateHeight(0);
+    
   }
 
   update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
 
-    console.log('update');
+    console.log('SQRT update');
 
     if (node.type.name !== 'sqrt') {
       return false;
@@ -99,28 +100,29 @@ export class SqrtNodeView implements NodeView {
   }
 
   selectNode(): void {
-    console.log('selectNode');
+    console.log('SQRT selectNode');
   }
 
   deselectNode(): void {
-    console.log('deselectNode');
+    console.log('SQRT deselectNode');
   }
 
   setSelection(anchor: number, head: number, root: Document): void {
-    console.log('setSelection');
+    console.log('SQRT setSelection');
+    this.updateHeight(0);
   }
 
   stopEvent(event: Event) {
-    console.log('stopEvent');
+    console.log('SQRT stopEvent');
     return true
   }
 
   ignoreMutation(p: MutationRecord | { type: 'selection', target: Element }): boolean {
-    console.log('ignoreMutation');
+    console.log('SQRT ignoreMutation');
     return false
   }
 
   destroy(): void {
-    console.log('destroy');
+    console.log('SQRT destroy');
   }
 }

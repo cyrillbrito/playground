@@ -24,7 +24,7 @@ export function InsertPow(state: EditorState<OurMathSchema>, dispatch: (p: Trans
   const containerType = state.schema.nodes.container;
   const powType = state.schema.nodes.pow;
 
-  const container = containerType.create();
+  const container = containerType.createChecked();
 
   const { from, to } = state.selection;
   if (from !== to) {
@@ -32,7 +32,7 @@ export function InsertPow(state: EditorState<OurMathSchema>, dispatch: (p: Trans
     container.content = slice.content;
   }
 
-  const fracNode = powType.create(null, [container]);
+  const fracNode = powType.createChecked(null, [container]);
 
   let transaction = state.tr.replaceSelectionWith(fracNode)
 

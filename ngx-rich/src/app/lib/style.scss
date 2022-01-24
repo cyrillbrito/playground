@@ -1,3 +1,8 @@
+@font-face {
+  font-family: symbola;
+  src: url("/assets/Symbola.woff2") format("woff2"),
+}
+
 frac {
   display: inline-block;
   text-align: center;
@@ -6,12 +11,7 @@ frac {
   background-color: rgba(255, 0, 0, 0.05);
 
   > content {
-    > :nth-child(1) {
-      display: block;
-    }
-
     > :nth-child(2) {
-      display: block;
       width: 100%;
       float: right;
       border-top: 1px solid black;
@@ -40,16 +40,12 @@ sqrt {
 }
 
 container {
-  display: inline-block;
+  display: block;
 
   &:empty {
-    // border: 1px dotted;
-    min-width: 1em;
-    min-height: 1em;
-    cursor: none;
     caret-color: transparent;
 
-    &:before {
+    &:after {
       content: "⬚";
     }
   }
@@ -417,10 +413,12 @@ img.ProseMirror-separator {
   border: 2px solid rgba(0, 0, 0, 0.2);
   padding: 5px 0;
   margin-bottom: 23px;
+  white-space: pre-wrap;
 }
 
 .ProseMirror {
   padding: 4px 8px 4px 14px;
   line-height: 1.2;
   outline: none;
+  font-family: symbola;
 }

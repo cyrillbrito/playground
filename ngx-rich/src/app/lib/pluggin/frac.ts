@@ -23,8 +23,8 @@ export function InsertFrac(state: EditorState<OurMathSchema>, dispatch: (p: Tran
   const containerType = state.schema.nodes.container;
   const fracType = state.schema.nodes.frac;
 
-  const topContainer = containerType.create();
-  const bottomContainer = containerType.create();
+  const topContainer = containerType.createChecked();
+  const bottomContainer = containerType.createChecked();
 
   const { from, to } = state.selection;
   if (from !== to) {
@@ -32,7 +32,7 @@ export function InsertFrac(state: EditorState<OurMathSchema>, dispatch: (p: Tran
     topContainer.content = slice.content;
   }
 
-  const fracNode = fracType.create(null, [topContainer, bottomContainer]);
+  const fracNode = fracType.createChecked(null, [topContainer, bottomContainer]);
 
   let transaction = state.tr.replaceSelectionWith(fracNode)
 
