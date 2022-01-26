@@ -3,7 +3,7 @@ import { Component, HostBinding } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./a.css', './b.scss']
+  styleUrls: ['./s-wolf.css', './s-tests.scss']
 })
 export class AppComponent {
   title = 'ngx-rich';

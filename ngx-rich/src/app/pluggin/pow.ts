@@ -12,15 +12,12 @@ export const PowNodeSpec: NodeSpec = {
   inline: true,
 };
 
-export function InsertPow(state: EditorState<OurMathSchema>, dispatch: (p: Transaction<OurMathSchema>) => void, view: EditorView<OurMathSchema>, event: Event) {
-  
+export function InsertPow(state: EditorState<OurMathSchema>, dispatch?: (tr: Transaction<OurMathSchema>) => void, view?: EditorView<OurMathSchema>): boolean {
+
   if (!dispatch) {
-    // This is a test, in the code examples there was this validation
-    // I don't know if this is useful
-    debugger;
-    console.error('!dispach test')
+    return true;
   }
-  
+
   const containerType = state.schema.nodes.container;
   const powType = state.schema.nodes.pow;
 
@@ -42,4 +39,5 @@ export function InsertPow(state: EditorState<OurMathSchema>, dispatch: (p: Trans
   }
 
   dispatch(transaction);
+  return true;
 }

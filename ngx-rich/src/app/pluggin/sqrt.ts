@@ -12,13 +12,10 @@ export const SqrtNodeSpec: NodeSpec = {
   inline: true,
 };
 
-export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch: (p: Transaction<OurMathSchema>) => void, view: EditorView<OurMathSchema>, event: Event) {
+export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch?: (tr: Transaction<OurMathSchema>) => void, view?: EditorView<OurMathSchema>): boolean {
 
   if (!dispatch) {
-    // This is a test, in the code examples there was this validation
-    // I don't know if this is useful
-    debugger;
-    console.error('!dispach test')
+    return true;
   }
 
   const containerNode = state.schema.nodes.container.createChecked();
@@ -32,6 +29,7 @@ export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch: (p: Tran
   // transaction.setSelection(new NodeSelection(resolvedPos));
 
   dispatch(transaction);
+  return true;
 }
 
 export class SqrtNodeView implements NodeView {
@@ -59,7 +57,7 @@ export class SqrtNodeView implements NodeView {
     this.dom.appendChild(this.contentDOM);
 
     this.updateHeight(0);
-    
+
   }
 
   update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {

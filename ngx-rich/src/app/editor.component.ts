@@ -5,9 +5,12 @@ import { EditorView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ContainerNodeSpec } from './pluggin/container';
 import { FracNodeSpec, FracNodeView, InsertFrac } from './pluggin/frac';
-import { PluginSelected } from './pluggin/plug';
+import {  PluginSelected, PluginSpacer } from './pluggin/plug';
 import { InsertPow, PowNodeSpec } from './pluggin/pow';
 import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
+import { keymap } from 'prosemirror-keymap';
+import applyDevTools from "prosemirror-dev-tools";
+import { gapCursor } from './pluggin/gapcursor1';
 
 
 const schema = new Schema({
@@ -72,10 +75,17 @@ const plugins: Plugin[] = [
     ]
   }),
   PluginSelected,
+
+  keymap({
+    "Ctrl-s": InsertSqrt,
+    "Ctrl-p": InsertPow,
+    "Ctrl-f": InsertFrac,
+  }),
+
+  // PluginSpacer,
+  gapCursor(),
+
 ];
-
-
-
 
 
 @Component({
@@ -112,6 +122,7 @@ export class EditorComponent implements OnInit {
       }
     );
     (window as any).view = this.view;
+    applyDevTools(this.view);
   }
 
   export(): void {

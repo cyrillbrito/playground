@@ -4,7 +4,8 @@ import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-vie
 
 export const ContainerNodeSpec: NodeSpec = {
   content: "math*",
-  parseDOM: [{ tag: "container" }],
+  // parseDOM: [{ tag: "container" }],
+  // toDOM: () => ['c', ['blank'], ['container', 0], ['blank']],
   toDOM: () => ['container', 0],
   inline: true,
 };
