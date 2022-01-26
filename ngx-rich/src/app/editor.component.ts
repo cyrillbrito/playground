@@ -5,7 +5,7 @@ import { EditorView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ContainerNodeSpec } from './pluggin/container';
 import { FracNodeSpec, FracNodeView, InsertFrac } from './pluggin/frac';
-import {  PluginSelected, PluginSpacer } from './pluggin/plug';
+import { PluginSelected, PluginSpacer } from './pluggin/plug';
 import { InsertPow, PowNodeSpec } from './pluggin/pow';
 import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
 import { keymap } from 'prosemirror-keymap';
@@ -27,10 +27,20 @@ const schema = new Schema({
       inline: false
     },
 
+    spacer: {
+      inline: true,
+      parseDOM: [{ tag: "spacer" }],
+      toDOM: (node) => ['spacer', ' '],
+      defining: false,
+
+    },
+
     container: ContainerNodeSpec,
     frac: FracNodeSpec,
     sqrt: SqrtNodeSpec,
     pow: PowNodeSpec,
+
+
 
     // span: {
     //   group: 'math',
@@ -82,7 +92,7 @@ const plugins: Plugin[] = [
     "Ctrl-f": InsertFrac,
   }),
 
-  // PluginSpacer,
+  PluginSpacer,
   gapCursor(),
 
 ];
@@ -95,7 +105,7 @@ const plugins: Plugin[] = [
 <div id=editor style='margin-bottom: 23px'></div>
 <div style='display: none' id='content'>123+456+009988</div>
   `,
-  styleUrls: ['./style.scss'],
+  styleUrls: ['./s-editor.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent implements OnInit {
@@ -122,7 +132,7 @@ export class EditorComponent implements OnInit {
       }
     );
     (window as any).view = this.view;
-    applyDevTools(this.view);
+    // applyDevTools(this.view);
   }
 
   export(): void {

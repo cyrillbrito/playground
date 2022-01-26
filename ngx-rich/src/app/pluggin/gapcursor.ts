@@ -3,22 +3,22 @@ import { Slice, ResolvedPos } from "prosemirror-model"
 
 // ::- Gap cursor selections are represented using this class. Its
 // `$anchor` and `$head` properties both point at the cursor position.
-export class GapCursor extends Selection {
+export class GapCursor2 extends Selection {
   // :: (ResolvedPos)
   // Create a gap cursor.
-  constructor($pos) {
+  constructor($pos: ResolvedPos) {
     super($pos, $pos)
   }
 
   override map(doc, mapping) {
     let $pos = doc.resolve(mapping.map(this.head))
-    return GapCursor.valid($pos) ? new GapCursor($pos) : Selection.near($pos)
+    return GapCursor2.valid($pos) ? new GapCursor2($pos) : Selection.near($pos)
   }
 
   override content() { return Slice.empty }
 
   override eq(other) {
-    return other instanceof GapCursor && other.head == this.head
+    return other instanceof GapCursor2 && other.head == this.head
   }
 
   override toJSON() {
@@ -27,7 +27,7 @@ export class GapCursor extends Selection {
 
   static override fromJSON(doc, json) {
     if (typeof json.pos != "number") throw new RangeError("Invalid input for GapCursor.fromJSON")
-    return new GapCursor(doc.resolve(json.pos))
+    return new GapCursor2(doc.resolve(json.pos))
   }
 
   override getBookmark() { return new GapBookmark(this.anchor) }
@@ -45,14 +45,14 @@ export class GapCursor extends Selection {
       return false;
     }
 
-    console.log('vv');
+    // console.log('vv');
 
-    return true;
+    return false;
   }
 
   static override findFrom($pos, dir, mustMove) {
     search: for (; ;) {
-      if (!mustMove && GapCursor.valid($pos)) return $pos
+      if (!mustMove && GapCursor2.valid($pos)) return $pos
       let pos = $pos.pos, next = null
       // Scan up from this position
       for (let d = $pos.depth; ; d--) {
@@ -65,7 +65,7 @@ export class GapCursor extends Selection {
         }
         pos += dir
         let $cur = $pos.doc.resolve(pos)
-        if (GapCursor.valid($cur)) return $cur
+        if (GapCursor2.valid($cur)) return $cur
       }
 
       // And then down into the next node
@@ -82,7 +82,7 @@ export class GapCursor extends Selection {
         next = inside
         pos += dir
         let $cur = $pos.doc.resolve(pos)
-        if (GapCursor.valid($cur)) return $cur
+        if (GapCursor2.valid($cur)) return $cur
       }
 
       return null
@@ -90,9 +90,9 @@ export class GapCursor extends Selection {
   }
 }
 
-GapCursor.prototype.visible = false
+GapCursor2.prototype.visible = false
 
-Selection.jsonID("gapcursor", GapCursor)
+Selection.jsonID("gapcursor", GapCursor2)
 
 class GapBookmark {
   pos: any;
@@ -104,7 +104,7 @@ class GapBookmark {
   }
   resolve(doc) {
     let $pos = doc.resolve(this.pos)
-    return GapCursor.valid($pos) ? new GapCursor($pos) : Selection.near($pos)
+    return GapCursor2.valid($pos) ? new GapCursor2($pos) : Selection.near($pos)
   }
 }
 

@@ -62,7 +62,7 @@ export class SqrtNodeView implements NodeView {
 
   update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
 
-    console.log('SQRT update');
+    // console.log('SQRT update');
 
     if (node.type.name !== 'sqrt') {
       return false;
@@ -98,29 +98,29 @@ export class SqrtNodeView implements NodeView {
   }
 
   selectNode(): void {
-    console.log('SQRT selectNode');
+    // console.log('SQRT selectNode');
   }
 
   deselectNode(): void {
-    console.log('SQRT deselectNode');
+    // console.log('SQRT deselectNode');
   }
 
   setSelection(anchor: number, head: number, root: Document): void {
-    console.log('SQRT setSelection');
+    // console.log('SQRT setSelection');
     this.updateHeight(0);
   }
 
   stopEvent(event: Event) {
-    console.log('SQRT stopEvent');
+    // console.log('SQRT stopEvent');
     return true
   }
 
   ignoreMutation(p: MutationRecord | { type: 'selection', target: Element }): boolean {
-    console.log('SQRT ignoreMutation');
+    // console.log('SQRT ignoreMutation');
     return false
   }
 
   destroy(): void {
-    console.log('SQRT destroy');
+    // console.log('SQRT destroy');
   }
 }

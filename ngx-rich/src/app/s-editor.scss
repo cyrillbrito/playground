@@ -1,0 +1,69 @@
+
+frac {
+  display: inline-block;
+  text-align: center;
+  vertical-align: -0.5em;
+
+  background-color: rgba(255, 0, 0, 0.05);
+
+  > content {
+    > :nth-child(2) {
+      width: 100%;
+      float: right;
+      border-top: 1px solid black;
+    }
+  }
+
+  > blank {
+    display: inline-block;
+  }
+}
+
+sqrt {
+  display: inline-block;
+  position: relative;
+
+  background-color: rgba(0, 255, 0, 0.05);
+
+  > svg {
+    position: absolute;
+  }
+
+  > content {
+    display: inline-block;
+    margin: 0.1em 0.1em 0 0.8em;
+  }
+}
+
+container {
+  display: block;
+
+  &:empty {
+    caret-color: transparent;
+
+    &:after {
+      content: "⬚";
+    }
+  }
+
+  &.selected {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+}
+
+formula {
+  display: inline-block;
+}
+
+pow {
+  display: inline-block;
+  font-size: 0.7em;
+  vertical-align: 0.5em;
+}
+
+caret {
+  display: inline-block;
+  background-color: lightblue;
+  width: 5px;
+  height: 1em;
+}
