@@ -1,4 +1,3 @@
-
 frac {
   display: inline-block;
   text-align: center;
@@ -29,8 +28,7 @@ sqrt {
     position: absolute;
   }
 
-  > content {
-    display: inline-block;
+  > container {
     margin: 0.1em 0.1em 0 0.8em;
   }
 }

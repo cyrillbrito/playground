@@ -11,6 +11,7 @@ import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
 import { keymap } from 'prosemirror-keymap';
 import applyDevTools from "prosemirror-dev-tools";
 import { gapCursor } from './pluggin/gapcursor1';
+import { PluginSqrt } from './pluggin/sqrt-plug';
 
 
 const schema = new Schema({
@@ -92,9 +93,9 @@ const plugins: Plugin[] = [
     "Ctrl-f": InsertFrac,
   }),
 
-  PluginSpacer,
+  // PluginSpacer,
   gapCursor(),
-
+  PluginSqrt,
 ];
 
 
@@ -124,8 +125,8 @@ export class EditorComponent implements OnInit {
           plugins
         }),
         nodeViews: {
-          frac(node, view, getPos) { return new FracNodeView(node, view, getPos) },
-          sqrt(node, view, getPos) { return new SqrtNodeView(node, view, getPos) },
+          // frac(node, view, getPos) { return new FracNodeView(node, view, getPos) },
+          // sqrt(node, view, getPos) { return new SqrtNodeView(node, view, getPos) },
           // container(node, view, getPos) { return new ContainerNodeView(node, view, getPos) },
         },
 

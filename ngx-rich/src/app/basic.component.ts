@@ -32,7 +32,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 </div>
 
   `,
-  styleUrls: ['./style.scss'],
+  styleUrls: [],
   encapsulation: ViewEncapsulation.None
 })
 export class BasicComponent implements OnInit {

@@ -30,7 +30,7 @@ function TreeParse(parent: Node, decorations: Decoration[]): void {
   parent.descendants((node, pos) => {
     if (node.type.name === 'container') {
       if (node.firstChild && node.firstChild.type.name !== 'text') {
-        const caretNode =  document.createElement('caret');
+        const caretNode = document.createElement('caret');
         caretNode.innerText = '-';
         decorations.push(Decoration.widget(
           pos + 1,
@@ -38,7 +38,7 @@ function TreeParse(parent: Node, decorations: Decoration[]): void {
         ))
       }
       if (node.lastChild && node.lastChild.type.name !== 'text') {
-        const caretNode =  document.createElement('caret');
+        const caretNode = document.createElement('caret');
         caretNode.innerText = '-';
         decorations.push(Decoration.widget(
           pos + node.nodeSize - 1,

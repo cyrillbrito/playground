@@ -1,5 +1,5 @@
-import { Node as ProsemirrorNode, NodeSpec } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { Node, NodeSpec, ResolvedPos } from 'prosemirror-model';
+import { EditorState, TextSelection, Transaction, NodeSelection, } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView, NodeView } from 'prosemirror-view';
 import { OurMathSchema } from '../editor.component';
 import { sqrtMain, sqrtTall } from '../sqrt-svg/sqrt-paths';
@@ -9,26 +9,40 @@ export const SqrtNodeSpec: NodeSpec = {
   group: "math",
   content: 'container',
   parseDOM: [{ tag: "sqrt" }],
+  toDOM() { return ["sqrt", 0] },
   inline: true,
 };
 
+
 export function InsertSqrt(state: EditorState<OurMathSchema>, dispatch?: (tr: Transaction<OurMathSchema>) => void, view?: EditorView<OurMathSchema>): boolean {
+
+  const { $from, $to } = state.selection;
+
+  if ($from.depth !== $to.depth) {
+    return false;
+  }
 
   if (!dispatch) {
     return true;
   }
 
-  const containerNode = state.schema.nodes.container.createChecked();
-  const sqrtNode = state.schema.nodes.sqrt.createChecked(null, [containerNode]);
+  const containerType = state.schema.nodes.container;
+  const sqrtType = state.schema.nodes.sqrt;
 
-  let transaction = state.tr.replaceSelectionWith(sqrtNode);
+  const containerNode = containerType.create();
+  if ($from.pos !== $to.pos) {
+    const slice = state.doc.slice($from.pos, $to.pos);
+    containerNode.content = slice.content;
+  }
 
-  // const resolvedPos = transaction.doc.resolve(
-  //   transaction.selection.anchor - transaction.selection.$anchor.nodeBefore.nodeSize
-  // );
-  // transaction.setSelection(new NodeSelection(resolvedPos));
+  const sqrtNode = sqrtType.create(null, [containerNode]);
 
-  dispatch(transaction);
+  let tr = state.tr;
+  tr = tr.replaceSelectionWith(sqrtNode);
+  tr = tr.setSelection(new TextSelection(tr.doc.resolve($to.pos + 2)));
+
+
+  dispatch(tr);
   return true;
 }
 
@@ -42,7 +56,7 @@ export class SqrtNodeView implements NodeView {
 
   fontSize = 16;
 
-  constructor(node: ProsemirrorNode, view: EditorView, getPos: boolean | (() => number)) {
+  constructor(node: Node, view: EditorView, getPos: boolean | (() => number)) {
 
     this.dom = document.createElement('sqrt');
 
@@ -60,9 +74,9 @@ export class SqrtNodeView implements NodeView {
 
   }
 
-  update(node: ProsemirrorNode, decorations: Decoration[], innerDecorations: DecorationSet) {
+  update(node: Node, decorations: Decoration[], innerDecorations: DecorationSet) {
 
-    // console.log('SQRT update');
+    console.log('SQRT update');
 
     if (node.type.name !== 'sqrt') {
       return false;
@@ -98,29 +112,29 @@ export class SqrtNodeView implements NodeView {
   }
 
   selectNode(): void {
-    // console.log('SQRT selectNode');
+    console.log('SQRT selectNode');
   }
 
   deselectNode(): void {
-    // console.log('SQRT deselectNode');
+    console.log('SQRT deselectNode');
   }
 
   setSelection(anchor: number, head: number, root: Document): void {
-    // console.log('SQRT setSelection');
-    this.updateHeight(0);
+    console.log('SQRT setSelection');
+    // this.updateHeight(0);
   }
 
   stopEvent(event: Event) {
-    // console.log('SQRT stopEvent');
+    console.log('SQRT stopEvent');
     return true
   }
 
   ignoreMutation(p: MutationRecord | { type: 'selection', target: Element }): boolean {
-    // console.log('SQRT ignoreMutation');
+    console.log('SQRT ignoreMutation');
     return false
   }
 
   destroy(): void {
-    // console.log('SQRT destroy');
+    console.log('SQRT destroy');
   }
 }
