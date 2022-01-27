@@ -5,12 +5,12 @@ import { EditorView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ContainerNodeSpec } from './pluggin/container';
 import { FracNodeSpec, FracNodeView, InsertFrac } from './pluggin/frac';
-import { PluginSelected, PluginSpacer } from './pluggin/plug';
+import { SelectedHighlightPlugin } from './pluggin/higlight-plugin';
 import { InsertPow, PowNodeSpec } from './pluggin/pow';
 import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
 import { keymap } from 'prosemirror-keymap';
 import applyDevTools from "prosemirror-dev-tools";
-import { gapCursor } from './pluggin/gapcursor1';
+import { mathCursor } from './pluggin/mathcursor-plugin';
 import { PluginSqrt } from './pluggin/sqrt-plug';
 
 
@@ -85,16 +85,16 @@ const plugins: Plugin[] = [
       })]
     ]
   }),
-  PluginSelected,
+  SelectedHighlightPlugin,
 
   keymap({
     "Ctrl-s": InsertSqrt,
     "Ctrl-p": InsertPow,
-    "Ctrl-f": InsertFrac,
+    "/": InsertFrac,
   }),
 
   // PluginSpacer,
-  gapCursor(),
+  mathCursor(),
   PluginSqrt,
 ];
 
@@ -117,10 +117,10 @@ export class EditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.view = new EditorView(
-      (document as any).querySelector('#editor'),
+      document.querySelector('#editor'),
       {
         state: EditorState.create({
-          doc: DOMParser.fromSchema(schema).parse((document as any).querySelector('#content')),
+          doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
           // doc: Node.fromJSON(schema, null),
           plugins
         }),
