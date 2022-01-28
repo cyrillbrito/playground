@@ -1,6 +1,6 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-import { sqrtMain, sqrtTall } from '../sqrt-svg/sqrt-paths';
+import { sqrtMain, sqrtSize1, sqrtSize2, sqrtSize3, sqrtSize4, sqrtTall } from '../sqrt-svg/sqrt-paths';
 
 
 // TODO Improvement, track the sqrt in the doc so that the update
@@ -47,8 +47,6 @@ function createSqrtSvg(view: EditorView, getPos: () => number): globalThis.Node 
 
 function updateSqrtSvg(view: EditorView, prevState: EditorState): void {
 
-  console.log(view.state.selection.$from.pos);
-
   view.state.doc.descendants((node, pos) => {
     if (node.type.name === 'sqrt') {
 
@@ -58,24 +56,36 @@ function updateSqrtSvg(view: EditorView, prevState: EditorState): void {
       const pathDOM = svgDOM.firstChild as SVGPathElement;
       const contentDOM = dom.lastChild as HTMLElement;
 
-      const fontSize = 16;
+      // TODO This is very hardcoded
+      const fontSizeSrt:string = (document.getElementsByTagName('app-root')[0] as any).style.fontSize;
+      const fontSize = Number(fontSizeSrt.split('px')[0]);
+
 
       const contentW = (contentDOM.offsetWidth / fontSize) || 1;
       const contentH = (contentDOM.offsetHeight / fontSize) || 1;
 
-      const sqrtW = .8 + contentW + .1;
+      const sqrtW = .9 + contentW + .1;
+      const sqrtH = contentH + .1;
 
       svgDOM.setAttribute('width', `${sqrtW}em`);
-      svgDOM.setAttribute('height', `${contentH}em`);
+      svgDOM.setAttribute('height', `${sqrtH}em`);
 
-      // Pixels to EM is /16 and the viewBox used by KaTex is em*1000
       svgDOM.setAttribute('viewBox', `0 0 400000 ${contentH * 1000}`);
 
       let points: any;
-      if (1250 < contentH * 1000) {
-        points = sqrtTall(contentH * 1000);
-      } else {
+      const viewBoxHeight = contentH * 1000;
+      if (viewBoxHeight < 1300) {
         points = sqrtMain();
+      } else if (viewBoxHeight < 1700) {
+        points = sqrtSize1();
+      } else if (viewBoxHeight < 2200) {
+        points = sqrtSize2();
+      } else if (viewBoxHeight < 2800) {
+        points = sqrtSize3();
+      } else if (viewBoxHeight < 3300) {
+        points = sqrtSize4();
+      } else {
+        points = sqrtTall(viewBoxHeight);
       }
 
       pathDOM.setAttribute('d', points);

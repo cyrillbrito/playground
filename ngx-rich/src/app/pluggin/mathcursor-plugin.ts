@@ -31,7 +31,13 @@ function arrow(dir: number) {
   return function (state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean {
 
     const $currPos = dir > 0 ? state.selection.$to : state.selection.$from;
-    const $nextNextPos = state.doc.resolve($currPos.pos + dir * 4);
+
+    let $nextNextPos
+    try {
+      $nextNextPos = state.doc.resolve($currPos.pos + dir * 4);
+    } catch {
+      return false;
+    }
 
     // If there is a depth change of 4 it means it is on the edged of two containers
     if ($currPos.depth - $nextNextPos.depth === 4) {

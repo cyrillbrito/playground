@@ -1,19 +1,19 @@
 frac {
   display: inline-block;
   text-align: center;
-  vertical-align: -0.5em;
+  vertical-align: -0.55em;
+  margin: 0.1em;
+  // background-color: rgba(255, 0, 0, 0.1);
 
-  background-color: rgba(255, 0, 0, 0.05);
-
-  > content {
+  > .content {
     > :nth-child(2) {
       width: 100%;
       float: right;
-      border-top: 1px solid black;
+      border-top: 0.05em solid black;
     }
   }
 
-  > blank {
+  > .aligner {
     display: inline-block;
   }
 }
@@ -21,19 +21,26 @@ frac {
 sqrt {
   display: inline-block;
   position: relative;
-
-  background-color: rgba(0, 255, 0, 0.05);
+  margin: 0.1em;
+  // background-color: rgba(0, 255, 0, 0.1);
 
   > svg {
     position: absolute;
-    top: 0;
     left: 0;
     pointer-events: none;
   }
 
   > container {
-    margin: 0.1em 0.1em 0 0.8em;
+    margin: 0.1em 0.1em 0 0.9em;
   }
+}
+
+pow {
+  display: inline-block;
+  font-size: 0.65em;
+  vertical-align: 0.7em;
+  margin: 0.1em;
+  // background-color: rgba(0, 0, 255, 0.1);
 }
 
 container {
@@ -48,23 +55,15 @@ container {
   }
 
   &.selected {
-    background-color: rgba(0, 255, 0, 0.2);
+    background-color: lightyellow;
   }
+}
+
+dyn {
+  background-color: orange;
+  display: inline-block;
 }
 
 formula {
   display: inline-block;
-}
-
-pow {
-  display: inline-block;
-  font-size: 0.7em;
-  vertical-align: 0.5em;
-}
-
-caret {
-  display: inline-block;
-  background-color: lightblue;
-  width: 5px;
-  height: 1em;
 }

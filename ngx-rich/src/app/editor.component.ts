@@ -1,16 +1,18 @@
+// import applyDevTools from 'prosemirror-dev-tools';
+import { history, redo, undo } from 'prosemirror-history';
+import { keymap } from 'prosemirror-keymap';
 import { menuBar, MenuItem } from 'prosemirror-menu';
 import { DOMParser, Schema } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ContainerNodeSpec } from './pluggin/container';
-import { FracNodeSpec, FracNodeView, InsertFrac } from './pluggin/frac';
+import { DynNodeSpec, DynNodeView, InsertDyn } from './pluggin/dyn';
+import { FracNodeSpec, InsertFrac } from './pluggin/frac';
 import { SelectedHighlightPlugin } from './pluggin/higlight-plugin';
-import { InsertPow, PowNodeSpec } from './pluggin/pow';
-import { InsertSqrt, SqrtNodeSpec, SqrtNodeView } from './pluggin/sqrt';
-import { keymap } from 'prosemirror-keymap';
-import applyDevTools from "prosemirror-dev-tools";
 import { mathCursor } from './pluggin/mathcursor-plugin';
+import { InsertPow, PowNodeSpec } from './pluggin/pow';
+import { InsertSqrt, SqrtNodeSpec } from './pluggin/sqrt';
 import { PluginSqrt } from './pluggin/sqrt-plug';
 
 
@@ -28,20 +30,12 @@ const schema = new Schema({
       inline: false
     },
 
-    spacer: {
-      inline: true,
-      parseDOM: [{ tag: "spacer" }],
-      toDOM: (node) => ['spacer', ' '],
-      defining: false,
-
-    },
-
     container: ContainerNodeSpec,
     frac: FracNodeSpec,
     sqrt: SqrtNodeSpec,
     pow: PowNodeSpec,
 
-
+    // dyn: DynNodeSpec,
 
     // span: {
     //   group: 'math',
@@ -89,13 +83,18 @@ const plugins: Plugin[] = [
 
   keymap({
     "Ctrl-s": InsertSqrt,
-    "Ctrl-p": InsertPow,
+    "^": InsertPow,
     "/": InsertFrac,
+    "Ctrl-d": InsertDyn,
+    "Mod-z": undo,
+    "Shift-Mod-z": redo,
+    "Mod-y": redo,
   }),
 
   // PluginSpacer,
   mathCursor(),
   PluginSqrt,
+  history(),
 ];
 
 
@@ -125,14 +124,11 @@ export class EditorComponent implements OnInit {
           plugins
         }),
         nodeViews: {
-          // frac(node, view, getPos) { return new FracNodeView(node, view, getPos) },
-          // sqrt(node, view, getPos) { return new SqrtNodeView(node, view, getPos) },
-          // container(node, view, getPos) { return new ContainerNodeView(node, view, getPos) },
+          // dyn(node, view, getPos) { return new DynNodeView(node, view, getPos) },
         },
 
       }
     );
-    (window as any).view = this.view;
     // applyDevTools(this.view);
   }
 
