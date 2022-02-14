@@ -9,5 +9,5 @@ export class AppComponent {
   title = 'ngx-rich';
 
   @HostBinding('style.font-size.px')
-  fontSize = 16;
+  fontSize = 32;
 }

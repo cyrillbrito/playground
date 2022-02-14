@@ -101,7 +101,7 @@ const plugins: Plugin[] = [
 @Component({
   selector: 'nb-editor',
   template: `
-  <button (click)="export()">Export</button>
+  <!-- <button (click)="export()">Export</button> -->
 <div id=editor style='margin-bottom: 23px'></div>
 <div style='display: none' id='content'>123+456+009988</div>
   `,
