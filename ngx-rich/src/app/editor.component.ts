@@ -119,14 +119,15 @@ export class EditorComponent implements OnInit {
       document.querySelector('#editor'),
       {
         state: EditorState.create({
+
           doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
           // doc: Node.fromJSON(schema, null),
           plugins
         }),
         nodeViews: {
-          // dyn(node, view, getPos) { return new DynNodeView(node, view, getPos) },
+          dyn(node, view, getPos) { return new DynNodeView(node, view, getPos) },
+          aa: function (node, view) { return null }
         },
-
       }
     );
     // applyDevTools(this.view);
@@ -137,7 +138,4 @@ export class EditorComponent implements OnInit {
   }
 
 }
-
-
-
 
