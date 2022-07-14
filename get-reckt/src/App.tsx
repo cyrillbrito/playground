@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import Dice from './Dice/Dice'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [n, setN] = useState(Math.floor(Math.random() * 6 + 1));
+
+  setTimeout(() => {
+    debugger
+    ref.current.roll();
+  }, 250);
+
+  const ref = createRef();
 
   return (
     <div className="App">
@@ -38,6 +47,9 @@ function App() {
           </a>
         </p>
       </header>
+      <main>
+        <Dice ref={ref} n={n}></Dice>
+      </main>
     </div>
   )
 }
